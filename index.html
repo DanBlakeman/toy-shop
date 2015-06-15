@@ -7,22 +7,42 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/productListFactory.js"></script>
+  <script src="js/cartController.js"></script>
   <script src="js/itemsController.js"></script>
 </head>
-<body ng-controller="ItemsController as Main">
+<body ng-controller="CartController as Cart">
 
-  <ul ng-repeat="item in Main.items" ng-controller="CartController as Cart">
-    <li>
-      <ul>
-        <li>{{item["Product Name"]}}</li>
-        <li>{{item["Category"]}}</li>
-        <li>{{item["Price"]}}</li>
-        <li>{{item["Quantity in Stock"]}}
-        <a id="checkoutBtn" ng-click="Cart.addToCart($index)">Add to Cart</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <div id="cart" ng-show="Cart.show">
+    Items in your cart:
+    <ul ng-repeat="item in Cart.addedItems">
+      <li>
+        <ul>
+          <li>{{item["Product Name"]}}</li>
+          <li>{{item["Category"]}}</li>
+          <li>{{item["Price"]}}</li>
+          <li>{{item["Quantity in Stock"]}}
+      </li>
+    </ul>
+  </div>
+
+  <div ng-controller="ItemsController as Main">
+    <ul ng-repeat="item in Main.items">
+      <li>
+        <ul>
+          <li>{{item["Product Name"]}}</li>
+          <li>{{item["Category"]}}</li>
+          <li>{{item["Price"]}}</li>
+          <li>{{item["Quantity in Stock"]}}
+<!--           <button id="checkoutBtn" ng-click="Cart.addToCart($index)">Add to Cart</button> -->
+          <form ng-submit="Cart.addToCart($index)">
+            <button id="checkoutBtn">Add to Cart</button>
+          </form>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 
 </body>
 </html>
