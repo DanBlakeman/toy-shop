@@ -11,13 +11,15 @@
 </head>
 <body ng-controller="ItemsController as Main">
 
-  <ul ng-repeat="item in Main.items">
+  <ul ng-repeat="item in Main.items" ng-controller="CartController as Cart">
     <li>
       <ul>
         <li>{{item["Product Name"]}}</li>
         <li>{{item["Category"]}}</li>
         <li>{{item["Price"]}}</li>
-        <li>{{item["Quantity in Stock"]}}</li>
+        <li>{{item["Quantity in Stock"]}}
+        <a id="checkoutBtn" ng-click="Cart.addToCart($index)">Add to Cart</a>
+        </li>
       </ul>
     </li>
   </ul>

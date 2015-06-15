@@ -13,3 +13,10 @@ To run feature tests simply run:
 
 To have the unit tests auto run:
   karma start test/karma.conf.js
+
+## Notes
+
+Factory - Use service instead to call RESTful api.
+
+Would only update totals upon checkout in production. Save server calls - user changes mind.
+
