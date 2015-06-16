@@ -28,3 +28,5 @@ Multiple orders same item
 
 Valid vouchers would be a api call to backend in production
 
+To prevent users adding OOS items, don't render button, also don't allow in controller.
+

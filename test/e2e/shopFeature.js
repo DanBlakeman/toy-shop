@@ -1,5 +1,11 @@
 describe('Shop Listings Feature', function () {
 
+  var items;
+
+  beforeEach(function () {
+    items = element.all(by.repeater('item in Main.items'));
+  });
+
   it('page has a title', function () {
     browser.get('http://localhost:8080');
     expect(browser.getTitle()).toEqual('Hello World!');
@@ -17,6 +23,13 @@ describe('Shop Listings Feature', function () {
     browser.get('http://localhost:8080');
      expect(element.all(by.repeater('item in Main.items')).get(1).getText()).toContain('Suede Shoes, Blue');
      expect(element.all(by.repeater('item in Main.items')).get(12).getText()).toContain('Mid Twist Cut-Out Dress, Pink');
+  });
+
+  it('does not render button to add out of stock items to cart', function () {
+    $('#toggleCart').click();
+    expect(items.get(4).$('#checkoutBtn').isPresent()).toEqual(false);
+    expect(items.get(4).$('.stock_warning').getText()).toEqual('Currently out of stock');
+    expect(items.get(4).$('.stock_warning').isDisplayed()).toEqual(true);
   });
 
 

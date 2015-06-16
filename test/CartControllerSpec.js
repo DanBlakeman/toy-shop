@@ -128,6 +128,9 @@ describe('CartController', function () {
     expect(ctrl.total()).toEqual((112.80).toFixed(2));
   });
 
-  // it('does not add out of stock items, instead displays a notification')
+
+  // it('does not add out of stock items, instead displays a notification', function () {
+
+  // });
 
 });
