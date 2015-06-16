@@ -22,5 +22,7 @@ Would use product Id stored in db not index.
 
 Would only update totals upon checkout in production. Save server calls - user changes mind.
 
+Following common practice only allow one voucher, second replaces first.
+
 Multiple orders same item
 

@@ -2,9 +2,14 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
 
   var self = this;
 
+  self.show = false;
+
   self.addedItems = [];
 
-  self.show = false;
+  self.appliedVoucher = null;
+
+  self.userVoucherText = '';
+
 
   self.listItems = function () {
     return self.addedItems;
@@ -26,6 +31,11 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
         total += self.addedItems[i].Price
     }
     return total.toFixed(2);
+  };
+
+  self.applyVoucher = function () {
+    self.appliedVoucher = self.userVoucherText;
+    self.userVoucherText = '';
   };
 
 

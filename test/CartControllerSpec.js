@@ -72,4 +72,18 @@ describe('CartController', function () {
     expect(ctrl.total()).toEqual(expectedTotal.toFixed(2));
   });
 
+  it('initialises with no voucher applied', function () {
+    expect(ctrl.appliedVoucher).toEqual(null);
+  });
+
+  it('initialises with no voucher applied', function () {
+    expect(ctrl.appliedVoucher).toEqual(null);
+  });
+
+  it('saves a voucher entered by a user', function () {
+    ctrl.userVoucherText = 'Test';
+    ctrl.applyVoucher();
+    expect(ctrl.appliedVoucher).toEqual('Test');
+  });
+
 });

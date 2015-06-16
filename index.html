@@ -12,7 +12,7 @@
   <script src="js/itemsController.js"></script>
 </head>
 <body ng-controller="CartController as Cart">
-
+  <a id="toggleCart" ng-click="Cart.show = !Cart.show">Toggle Cart</a>
   <div id="cart" ng-show="Cart.show">
     Items in your cart:
     <ul ng-repeat="item in Cart.addedItems">
@@ -25,9 +25,22 @@
           <button id="removeItem" ng-click="Cart.remove($index)">Remove</button>
         </ul>
     </ul>
-    <div>Total:
+    <div>
+      Total:
       <span id="cartTotal">Total: £{{Cart.total()}}
       </span>
+    </div>
+    <div>
+      Enter Voucher Code:
+      <form ng-submit="Cart.applyVoucher()">
+        <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
+        <button>Add voucher</button>
+      </form>
+    </div>
+    <div id="vouchersApplied">
+    <!-- ng-show="Cart.appliedVoucher" -->
+      Voucher applied:
+      <span>{{ Cart.appliedVoucher }}</span>
     </div>
   </div>
 
