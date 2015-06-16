@@ -1,12 +1,12 @@
-describe('CartController', function () {
+describe('ProductList', function () {
   beforeEach(module('ShopApp'));
-  var ctrl;
+  var factory;
 
-  beforeEach(function() {
+  beforeEach(inject(function(ProductList) {
+    factory = ProductList;
+  }));
 
-  productListFactoryMock = {
-      items: function() {
-        return [
+  var items =[
     { "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5},
     { "Product Name": "Suede Shoes, Blue","Category": "Women’s Footwear", "Price": 42.00, "Quantity in Stock": 44},
     { "Product Name": "Leather Driver Saddle Loafers, Tan", "Category": "Men’s Footwear", "Price": 34.00, "Quantity in Stock": 12},
@@ -21,42 +21,10 @@ describe('CartController', function () {
     { "Product Name": "Bird Print Dress, Black", "Category": "Women’s Formalwear", "Price": 270.00, "Quantity in Stock": 10},
     { "Product Name": "Mid Twist Cut-Out Dress, Pink", "Category": "Women’s Formalwear", "Price": 540.00, "Quantity in Stock": 5}
 ];
-      }
-    };
-
-    module(function($provide) {
-      $provide.value('ProductList', productListFactoryMock);
-    });
-
-  });
-
-  beforeEach(inject(function($controller) {
-    ctrl = $controller('CartController');
-  }));
 
 
   it('initialises with cart empty of items', function() {
-    expect(ctrl.addedItems).toEqual([]);
-  });
-
-
-  it('can add an item to cart given a product index', function() {
-    ctrl.addToCart(0);
-    expect(ctrl.addedItems).toEqual([{ "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5}]);
-  });
-
-  it('can remove an item given a product index', function () {
-    ctrl.addToCart(0);
-    ctrl.remove(0);
-    expect(ctrl.addedItems).toEqual([]);
-  });
-
-  it('can remove an item given a product index', function () {
-    ctrl.addToCart(0);
-    ctrl.addToCart(1);
-    expect(ctrl.addedItems.length).toEqual(2);
-    ctrl.remove(1);
-    expect(ctrl.addedItems).toEqual([{ "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5}]);
+    expect(factory.items()).toEqual(items);
   });
 
 });

@@ -18,5 +18,7 @@ To have the unit tests auto run:
 
 Factory - Use service instead to call RESTful api.
 
+Would use product Id stored in db not index.
+
 Would only update totals upon checkout in production. Save server calls - user changes mind.
 

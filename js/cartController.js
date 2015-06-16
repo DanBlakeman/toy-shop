@@ -16,5 +16,9 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
     self.show = true;
   };
 
+  self.remove = function (cart_index) {
+    self.addedItems.splice(cart_index, 1);
+  };
+
 
 }]);

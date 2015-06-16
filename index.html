@@ -21,8 +21,9 @@
           <li>{{item["Product Name"]}}</li>
           <li>{{item["Category"]}}</li>
           <li>{{item["Price"]}}</li>
-          <li>{{item["Quantity in Stock"]}}
-      </li>
+          <li>{{item["Quantity in Stock"]}}</li>
+          <button id="removeItem" ng-click="Cart.remove($index)">Remove</button>
+
     </ul>
   </div>
 
@@ -34,10 +35,7 @@
           <li>{{item["Category"]}}</li>
           <li>{{item["Price"]}}</li>
           <li>{{item["Quantity in Stock"]}}
-<!--           <button id="checkoutBtn" ng-click="Cart.addToCart($index)">Add to Cart</button> -->
-          <form ng-submit="Cart.addToCart($index)">
-            <button id="checkoutBtn">Add to Cart</button>
-          </form>
+          <button id="checkoutBtn" ng-click="Cart.addToCart($index)">Add to Cart</button>
           </li>
         </ul>
       </li>
