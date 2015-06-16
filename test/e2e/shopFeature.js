@@ -1,6 +1,6 @@
-describe('A shop toy app', function () {
+describe('Shop Listings Feature', function () {
 
-  it('has a title', function () {
+  it('page has a title', function () {
     browser.get('http://localhost:8080');
     expect(browser.getTitle()).toEqual('Hello World!');
   });

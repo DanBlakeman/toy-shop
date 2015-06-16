@@ -22,3 +22,5 @@ Would use product Id stored in db not index.
 
 Would only update totals upon checkout in production. Save server calls - user changes mind.
 
+Multiple orders same item
+

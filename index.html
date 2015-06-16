@@ -23,8 +23,12 @@
           <li>{{item["Price"]}}</li>
           <li>{{item["Quantity in Stock"]}}</li>
           <button id="removeItem" ng-click="Cart.remove($index)">Remove</button>
-
+        </ul>
     </ul>
+    <div>Total:
+      <span id="cartTotal">Total: £{{Cart.total()}}
+      </span>
+    </div>
   </div>
 
   <div ng-controller="ItemsController as Main">

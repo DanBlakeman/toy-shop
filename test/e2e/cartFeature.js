@@ -1,4 +1,4 @@
-describe('A shop toy app', function () {
+describe('Shopping Cart Feature', function () {
 
   var items;
 
@@ -27,7 +27,10 @@ describe('A shop toy app', function () {
     expect(element.all(by.repeater('item in Cart.addedItems')).getText()).not.toContain('Almond Toe Court Shoes, Patent Black');
   });
 
-
+  it('shows the total price of items in the cart', function () {
+    items.get(1).$('#checkoutBtn').click();
+    expect($('#cartTotal').getText()).toEqual('Total: £141.00');
+  });
 
 
 

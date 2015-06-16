@@ -59,4 +59,17 @@ describe('CartController', function () {
     expect(ctrl.addedItems).toEqual([{ "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5}]);
   });
 
+  it('totals single item in the cart', function () {
+    ctrl.addToCart(0);
+    var expectedTotal = 99;
+    expect(ctrl.total()).toEqual(expectedTotal.toFixed(2));
+  });
+
+  it('totals multiple items in the cart', function () {
+    ctrl.addToCart(0);
+    ctrl.addToCart(1);
+    var expectedTotal = 141;
+    expect(ctrl.total()).toEqual(expectedTotal.toFixed(2));
+  });
+
 });

@@ -20,5 +20,13 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
     self.addedItems.splice(cart_index, 1);
   };
 
+  self.total = function () {
+    var total = 0;
+    for(var i = 0; i < self.addedItems.length; i++) {
+        total += self.addedItems[i].Price
+    }
+    return total.toFixed(2);
+  };
+
 
 }]);
