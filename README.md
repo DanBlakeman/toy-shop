@@ -26,3 +26,5 @@ Following common practice only allow one voucher, second replaces first.
 
 Multiple orders same item
 
+Valid vouchers would be a api call to backend in production
+

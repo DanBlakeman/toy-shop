@@ -26,7 +26,6 @@
         </ul>
     </ul>
     <div>
-      Total:
       <span id="cartTotal">Total: £{{Cart.total()}}
       </span>
     </div>
@@ -40,7 +39,11 @@
     <div id="vouchersApplied">
     <!-- ng-show="Cart.appliedVoucher" -->
       Voucher applied:
-      <span>{{ Cart.appliedVoucher }}</span>
+      <span>{{ Cart.appliedVoucher }}
+      </span>
+      <span id="vouchersAlert" ng-show="Cart.voucherError">
+          Invalid voucher
+        </span>
     </div>
   </div>
 

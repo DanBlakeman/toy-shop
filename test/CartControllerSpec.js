@@ -81,9 +81,53 @@ describe('CartController', function () {
   });
 
   it('saves a voucher entered by a user', function () {
+    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.applyVoucher();
+    expect(ctrl.appliedVoucher).toEqual('20FORSUMMER');
+  });
+
+  it('does not save invalid vouchers', function () {
     ctrl.userVoucherText = 'Test';
     ctrl.applyVoucher();
-    expect(ctrl.appliedVoucher).toEqual('Test');
+    expect(ctrl.appliedVoucher).toEqual(null);
   });
+
+  it('ensures current voucher is removed on entry of new invalid voucher', function () {
+    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.userVoucherText = 'Test';
+    ctrl.applyVoucher();
+    expect(ctrl.appliedVoucher).toEqual(null);
+  });
+
+  it('flags invalid for the view when incorrect voucher entered', function () {
+    ctrl.userVoucherText = 'Test';
+    ctrl.applyVoucher();
+    expect(ctrl.voucherError).toEqual(true);
+  });
+
+  it('does not flag as invalid when correct voucher entered', function () {
+    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.applyVoucher();
+    expect(ctrl.voucherError).toEqual(false);
+  });
+
+  it('totals multiple items taking into account voucher', function () {
+    ctrl.addToCart(0);
+    ctrl.addToCart(1);
+    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.applyVoucher();
+    expect(ctrl.total()).toEqual((112.80).toFixed(2));
+  });
+
+  it('totals multiple items taking into account voucher added before the items were added', function () {
+    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(0);
+    ctrl.addToCart(1);
+    expect(ctrl.total()).toEqual((112.80).toFixed(2));
+  });
+
+  // it('does not add out of stock items, instead displays a notification')
 
 });

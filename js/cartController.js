@@ -10,6 +10,12 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
 
   self.userVoucherText = '';
 
+  self.voucherError = false;
+
+  self.validVouchers = {
+    '20FORSUMMER': 20
+  };
+
 
   self.listItems = function () {
     return self.addedItems;
@@ -30,12 +36,22 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
     for(var i = 0; i < self.addedItems.length; i++) {
         total += self.addedItems[i].Price
     }
+    if (self.appliedVoucher) {
+      var discount = (total / 100) * self.validVouchers[self.appliedVoucher];
+      return (total - discount).toFixed(2);
+    }
     return total.toFixed(2);
   };
 
   self.applyVoucher = function () {
-    self.appliedVoucher = self.userVoucherText;
-    self.userVoucherText = '';
+    if (self.validVouchers[self.userVoucherText]) {
+      self.appliedVoucher = self.userVoucherText;
+      self.userVoucherText = '';
+      self.voucherError = false;
+    } else {
+      self.appliedVoucher = null;
+      self.voucherError = true;
+    };
   };
 
 
