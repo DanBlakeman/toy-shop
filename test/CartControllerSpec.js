@@ -4,28 +4,27 @@ describe('CartController', function () {
 
   beforeEach(function() {
 
-  productListFactoryMock = {
+  var productListFactoryMock = {
       items: function() {
         return [
     { "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5},
     { "Product Name": "Suede Shoes, Blue","Category": "Women’s Footwear", "Price": 42.00, "Quantity in Stock": 44},
-    { "Product Name": "Leather Driver Saddle Loafers, Tan", "Category": "Men’s Footwear", "Price": 34.00, "Quantity in Stock": 12},
-    { "Product Name": "Flip Flops, Red", "Category": "Men’s Footwear", "Price": 19.00, "Quantity in Stock": 6},
-    { "Product Name": "Flip Flops, Blue", "Category": "Men’s Footwear", "Price": 19.00, "Quantity in Stock": 0},
-    { "Product Name": "Gold Button Cardigan, Black", "Category": "Women’s Casualwear", "Price": 167.00, "Quantity in Stock": 6},
-    { "Product Name": "Cotton Shorts, Medium Red", "Category": "Women’s Casualwear", "Price": 30.00, "Quantity in Stock": 5},
-    { "Product Name": "Fine Stripe Short Sleeve Shirt, Grey", "Category": "Men’s Casualwear", "Price": 49.99, "Quantity in Stock": 9},
-    { "Product Name": "Fine Stripe Short Sleeve Shirt, Green", "Category": "Men’s Casualwear", "Price": 39.99, "Quantity in Stock": 3},
-    { "Product Name": "Sharkskin Waistcoat, Charcoal", "Category": "Men’s Formalwear", "Price": 75.00, "Quantity in Stock": 2},
-    { "Product Name": "Lightweight Patch Pocket￼Blazer, Deer", "Category": "Men’s Formalwear", "Price": 175.50, "Quantity in Stock": 1},
-    { "Product Name": "Bird Print Dress, Black", "Category": "Women’s Formalwear", "Price": 270.00, "Quantity in Stock": 10},
-    { "Product Name": "Mid Twist Cut-Out Dress, Pink", "Category": "Women’s Formalwear", "Price": 540.00, "Quantity in Stock": 5}
+    { "Product Name": "Mock Item", "Category": "Test", "Price": 1.00, "Quantity in Stock": 1}
 ];
       }
     };
 
+    var FiveOffVoucherMock = {
+    meetsCriteria: function(cart_items, total) {
+      return (total > 5);
+    },
+    failMessage: 'Add more items to qualify',
+    discountAmount: 5
+  };
+
     module(function($provide) {
       $provide.value('ProductList', productListFactoryMock);
+      $provide.value('FiveOffVoucher', FiveOffVoucherMock);
     });
 
   });
@@ -76,14 +75,10 @@ describe('CartController', function () {
     expect(ctrl.appliedVoucher).toEqual(null);
   });
 
-  it('initialises with no voucher applied', function () {
-    expect(ctrl.appliedVoucher).toEqual(null);
-  });
-
   it('saves a voucher entered by a user', function () {
-    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.userVoucherText = '5FORSUMMER';
     ctrl.applyVoucher();
-    expect(ctrl.appliedVoucher).toEqual('20FORSUMMER');
+    expect(ctrl.appliedVoucher).toEqual('5FORSUMMER');
   });
 
   it('does not save invalid vouchers', function () {
@@ -93,7 +88,7 @@ describe('CartController', function () {
   });
 
   it('ensures current voucher is removed on entry of new invalid voucher', function () {
-    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.userVoucherText = '5FORSUMMER';
     ctrl.applyVoucher();
     ctrl.userVoucherText = 'Test';
     ctrl.applyVoucher();
@@ -107,7 +102,7 @@ describe('CartController', function () {
   });
 
   it('does not flag as invalid when correct voucher entered', function () {
-    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.userVoucherText = '5FORSUMMER';
     ctrl.applyVoucher();
     expect(ctrl.voucherError).toEqual(false);
   });
@@ -115,22 +110,62 @@ describe('CartController', function () {
   it('totals multiple items taking into account voucher', function () {
     ctrl.addToCart(0);
     ctrl.addToCart(1);
-    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.userVoucherText = '5FORSUMMER';
     ctrl.applyVoucher();
-    expect(ctrl.total()).toEqual((112.80).toFixed(2));
+    expect(ctrl.total()).toEqual((136).toFixed(2));
   });
 
   it('totals multiple items taking into account voucher added before the items were added', function () {
-    ctrl.userVoucherText = '20FORSUMMER';
+    ctrl.userVoucherText = '5FORSUMMER';
     ctrl.applyVoucher();
     ctrl.addToCart(0);
     ctrl.addToCart(1);
-    expect(ctrl.total()).toEqual((112.80).toFixed(2));
+    expect(ctrl.total()).toEqual((136).toFixed(2));
+  });
+
+  it('sets an alert if voucher is added but not applicable', function () {
+    ctrl.userVoucherText = '5FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(2);
+    ctrl.total()
+    expect(ctrl.voucherAlert).toEqual('Add more items to qualify');
+  });
+
+  it('sets an alert if voucher is added but not applicable', function () {
+    ctrl.userVoucherText = '5FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(2);
+    ctrl.total()
+    expect(ctrl.voucherAlert).toEqual('Add more items to qualify');
+  });
+
+  it('removes alert once voucher becomes applicable', function () {
+    ctrl.userVoucherText = '5FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(2);
+    ctrl.total()
+    ctrl.addToCart(0);
+    ctrl.total()
+    expect(ctrl.voucherAlert).toEqual(false);
+  });
+
+  it('removes alert once voucher removed', function () {
+    ctrl.userVoucherText = '5FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(2);
+    ctrl.total()
+    ctrl.userVoucherText = '';
+    ctrl.applyVoucher();
+    ctrl.total()
+    expect(ctrl.voucherAlert).toEqual(false);
   });
 
 
-  // it('does not add out of stock items, instead displays a notification', function () {
-
-  // });
+  it('applied voucher does not effect total unless applicable', function () {
+    ctrl.userVoucherText = '5FORSUMMER';
+    ctrl.applyVoucher();
+    ctrl.addToCart(2);
+    expect(ctrl.total()).toEqual((1).toFixed(2));
+  });
 
 });

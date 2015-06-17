@@ -21,9 +21,11 @@ module.exports = function (config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'js/app.js',
       'js/productListFactory.js',
+      'js/fiveOffVoucher.js',
+      'js/tenOffVoucher.js',
+      'js/fifteenOffVoucher.js',
       'js/itemsController.js',
       'js/cartController.js',
-      // 'js/**/*.js',
       'test/**/*Spec.js'
     ],
 

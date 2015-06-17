@@ -20,13 +20,16 @@ Factory - Use service instead to call RESTful api.
 
 Would use product Id stored in db not index.
 
-Would only update totals upon checkout in production. Save server calls - user changes mind.
+Would only update quanities upon checkout in production. Save server calls - user changes mind.
 
 Following common practice only allow one voucher, second replaces first.
 
-Multiple orders same item
-
 Valid vouchers would be a api call to backend in production
 
-To prevent users adding OOS items, don't render button, also don't allow in controller.
+refactor voucher functions so can be injected to minimise dependency
 
+show voucher info message
+
+spy on cart calling voucher in test
+
+check rubyism var naming

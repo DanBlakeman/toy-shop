@@ -1,4 +1,4 @@
-shopApp.controller('CartController', ['ProductList', function(ProductList) {
+shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVoucher', 'FifteenOffVoucher', function(ProductList, FiveOffVoucher, TenOffVoucher, FifteenOffVoucher) {
 
   var self = this;
 
@@ -12,8 +12,12 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
 
   self.voucherError = false;
 
+  self.voucherAlert = false;
+
   self.validVouchers = {
-    '20FORSUMMER': 20
+    '5FORSUMMER': FiveOffVoucher,
+    'OVER50': TenOffVoucher,
+    'FOOTWEAR15': FifteenOffVoucher
   };
 
 
@@ -33,13 +37,16 @@ shopApp.controller('CartController', ['ProductList', function(ProductList) {
 
   self.total = function () {
     var total = 0;
+    self.voucherAlert = false;
     for(var i = 0; i < self.addedItems.length; i++) {
         total += self.addedItems[i].Price
-    }
-    if (self.appliedVoucher) {
-      var discount = (total / 100) * self.validVouchers[self.appliedVoucher];
+    };
+    if (self.appliedVoucher && self.validVouchers[self.appliedVoucher].meetsCriteria(self.addedItems, total) === true) {
+      var discount = self.validVouchers[self.appliedVoucher].discountAmount;
       return (total - discount).toFixed(2);
-    }
+    } else if (self.appliedVoucher) {
+      self.voucherAlert = self.validVouchers[self.appliedVoucher].failMessage;
+    };
     return total.toFixed(2);
   };
 
