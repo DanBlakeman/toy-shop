@@ -1,0 +1,8 @@
+/* Required by Bootstrap navbar */
+body {
+  padding-top: 70px;
+}
+
+.cart-logo {
+  float: right;
+}
