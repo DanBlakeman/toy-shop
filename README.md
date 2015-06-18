@@ -17,7 +17,7 @@ http-server ./
 
 - To visit the site in your browser visit:
 
-  http://localhost:8080/index.html
+  localhost:8080/index.html
 
 - To run feature tests run the following command:
   ```
