@@ -43,10 +43,11 @@ Feature tests are located at:
 ```
 /test/e2e/*Feature.js
 ```
+
 Unit tests are located at:
 ```
 test/*Spec.js
-
+```
 ### Tech and thinking
 
 I decided to use Angular to complete this challenge, partially as a way to develop my own angular ability, but also as a the complexity of the requirements would benefit from an organised front end framework. There was also a lot of repetition in the view (each item has the same attributes, as does each cart item) - a front end JS framework benefits this using features such as 'ng-repeat'.
