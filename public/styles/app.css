@@ -6,6 +6,7 @@ body {
 
 .navbar__cart-container {
   margin-right: 1em;
+  margin-top: 2px;
 }
 
 /* Overide Bootstrap default behaviour of Nav collapse small screens */

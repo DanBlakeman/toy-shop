@@ -1,18 +1,36 @@
-# A toy app - creating an online shop with Angular
+# A toy app - Creating an online shop with Angular
 
 ## How to use:
 
-Firstly run the site locally by typing:
-  http-server ./
+- Firstly run the site locally by typing:
 
-To visit the site in your browser visit:
-  index.html
+```
+http-server ./
 
-To run feature tests simply run:
+```
+
+- To visit the site in your browser visit:
+
+  http://localhost:8080/index.html
+
+- To run feature tests simply run the following command:
+  ```
   protractor test/e2e/conf.js
-
-To have the unit tests auto run:
+  ```
+- To have the unit tests auto run in the background:
+  ```
   karma start test/karma.conf.js
+  ```
+
+- There is three implemented voucher code you can use:
+
+  ### Vouchers
+
+  - 5FORSUMMER
+  - FOOTWEAR15
+  - OVER50
+
+## Approach
 
 ## Notes
 
@@ -35,9 +53,3 @@ spy on cart calling voucher in test
 check rubyism var naming
 
 validVouchers would call restful API and return objects to prevent abuse. Mocked this with factory. However it felt wrong not to test these factorys like other angular factorys so each is fully tested.
-
-## Vouchers
-
-5FORSUMMER
-FOOTWEAR15
-OVER50
