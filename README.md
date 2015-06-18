@@ -35,3 +35,9 @@ spy on cart calling voucher in test
 check rubyism var naming
 
 validVouchers would call restful API and return objects to prevent abuse. Mocked this with factory. However it felt wrong not to test these factorys like other angular factorys so each is fully tested.
+
+## Vouchers
+
+5FORSUMMER
+FOOTWEAR15
+OVER50

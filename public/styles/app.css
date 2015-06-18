@@ -42,10 +42,18 @@ float: right!important;
   margin-bottom: 1em;
 }
 
-/* Cart Listings */
+/* Cart */
+
+.cart {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 2em;
+}
 
 .cart_item {
   margin-bottom: 2em;
+  text-align: center;
 }
 
 .cart_item__desc {
@@ -55,4 +63,16 @@ float: right!important;
 .cart_item__img {
   margin-bottom: 1em;
   display: block;
+}
+
+.cart__voucher-error {
+  color: red;
+}
+
+.cart__added-voucher {
+  color: #66CD00;
+}
+
+.cart__voucher-alert {
+  font-style: italic;
 }
