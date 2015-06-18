@@ -49,7 +49,7 @@
             <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=23&txt=100%C3%97100&w=100&h=100">
             <p class="cart_item_desc">{{item["Product Name"]}}</p>
             <p class="cart_item_desc">Price: {{item["Price"]}}</p>
-            <button id="removeItem" ng-click="Cart.remove($index)" class="cart_item_btn">Remove</button>
+            <button id="removeItem" ng-click="Cart.remove($index)" class="cart_item_btn btn btn-default">Remove</button>
           </div>
         </div>
         <div>
@@ -61,10 +61,10 @@
             Enter Voucher Code:
             <form ng-submit="Cart.applyVoucher()">
               <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
-              <button>Add voucher</button>
+              <button class="btn btn-default">Add voucher</button>
             </form>
           </span>
-          <div id="vouchersApplied">
+          <div id="vouchersApplied" ng-show="Cart.appliedVoucher || Cart.voucherError || Cart.voucherAlert">
             Voucher applied:
             <span class="cart__added-voucher">{{ Cart.appliedVoucher }}
             </span>
@@ -84,11 +84,11 @@
       <div ng-repeat="item in Main.items">
           <div class="item">
             <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200">
-            <p class="item__desc">{{item["Product Name"]}}</p>
+            <p class="item__desc item__desc--title">{{item["Product Name"]}}</p>
             <p class="item__desc">{{item["Category"]}}</p>
             <p class="item__desc">£{{item["Price"]}}</p>
             <p class="item__desc">Currently {{item["Quantity in Stock"]}} in stock</p>
-            <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" class="item__btn">Add to Cart</button>
+            <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" class="item__btn btn btn-default">Add to Cart</button>
             <span class="stock_warning" ng-if="Main.isOutOfStock($index)">Currently out of stock</span>
           </div>
       </div>

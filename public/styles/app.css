@@ -38,6 +38,10 @@ float: right!important;
   text-align: center;
 }
 
+.item__desc--title {
+  font-size: 1.2em;
+}
+
 .item__img {
   margin-bottom: 1em;
 }
