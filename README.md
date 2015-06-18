@@ -2,7 +2,7 @@
 
 ## How to use:
 
-- Firstly, install all dependencies if downloading this from GitHub (you have these already if running from a ZIP of this directory):
+- Firstly, install all dependencies:
 
  ```
  bower install
