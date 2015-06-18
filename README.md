@@ -46,6 +46,8 @@ Protractor tests are grouped into files describing the feature theme.
 
 Karma tests are grouped into files describing the controller/angular factory being tested.
 
+### Layout
+
 Feature tests are located at:
 ```
 /test/e2e/*Feature.js
@@ -55,6 +57,18 @@ Unit tests are located at:
 ```
 test/*Spec.js
 ```
+Site is located at:
+```
+index.html
+public/styles
+```
+External dependencies are located at:
+```
+bower_components
+node_modules
+```
+
+
 ### Tech and thinking
 
 I decided to use Angular to complete this challenge, partially as a way to develop my own angular ability, but also as a the complexity of the requirements would benefit from an organised front end framework. There was also a lot of repetition in the view (each item has the same attributes, as does each cart item) - a front end JS framework benefits this using features such as 'ng-repeat'.
