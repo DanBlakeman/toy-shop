@@ -1,4 +1,4 @@
-shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVoucher', 'FifteenOffVoucher', function(ProductList, FiveOffVoucher, TenOffVoucher, FifteenOffVoucher) {
+shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVoucher', 'FifteenOffVoucher', function (ProductList, FiveOffVoucher, TenOffVoucher, FifteenOffVoucher) {
 
   var self = this;
 
@@ -10,9 +10,9 @@ shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVo
 
   self.userVoucherText = '';
 
-  self.voucherError = false;
+  self.voucherError = false; // Used for invalid voucher entry
 
-  self.voucherAlert = false;
+  self.voucherAlert = false; // Used for all vouchers if conditions not yet met
 
   self.validVouchers = {
     '5FORSUMMER': FiveOffVoucher,
@@ -35,21 +35,6 @@ shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVo
     self.addedItems.splice(cart_index, 1);
   };
 
-  self.total = function () {
-    var total = 0;
-    self.voucherAlert = false;
-    for(var i = 0; i < self.addedItems.length; i++) {
-        total += self.addedItems[i].Price
-    };
-    if (self.appliedVoucher && self.validVouchers[self.appliedVoucher].meetsCriteria(self.addedItems, total) === true) {
-      var discount = self.validVouchers[self.appliedVoucher].discountAmount;
-      return (total - discount).toFixed(2);
-    } else if (self.appliedVoucher) {
-      self.voucherAlert = self.validVouchers[self.appliedVoucher].failMessage;
-    };
-    return total.toFixed(2);
-  };
-
   self.applyVoucher = function () {
     if (self.validVouchers[self.userVoucherText]) {
       self.appliedVoucher = self.userVoucherText;
@@ -60,6 +45,47 @@ shopApp.controller('CartController', ['ProductList', 'FiveOffVoucher', 'TenOffVo
       self.voucherError = true;
     };
   };
+
+  self.total = function () {
+    self.voucherAlert = false;
+    var total = self._findTotalBeforeVoucher();
+    var discount = self._calcDiscount(total);
+    self._setAnyVoucherAlerts(total);
+    return (total - discount).toFixed(2);
+  };
+
+
+  // Private
+
+  self._findTotalBeforeVoucher = function () {
+    var total = 0;
+    for(var i = 0; i < self.addedItems.length; i++) {
+        total += self.addedItems[i].Price
+    };
+    return total;
+  };
+
+  self._calcDiscount = function (total) {
+    if (self._isVoucherApplicable(total)) {
+      return self.validVouchers[self.appliedVoucher].discountAmount;
+    }
+    return 0;
+  };
+
+  self._setAnyVoucherAlerts = function (total) {
+    if (self.appliedVoucher && !self._isVoucherApplicable(total)) {
+      self._setVoucherNotApplicableAlert();
+    };
+  };
+
+  self._isVoucherApplicable = function (total) {
+    return self.appliedVoucher && self.validVouchers[self.appliedVoucher].meetsCriteria(self.addedItems, total) === true;
+  }
+
+  self._setVoucherNotApplicableAlert = function () {
+    self.voucherAlert = self.validVouchers[self.appliedVoucher].failMessage;
+  };
+
 
 
 }]);

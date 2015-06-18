@@ -2,7 +2,14 @@
 
 ## How to use:
 
-- Firstly run the site locally by typing:
+- Firstly, install all dependencies if downloading this from GitHub (you have these already if running from a ZIP of this directory):
+
+ ```
+ bower install
+ npm install
+ ```
+
+- Secondly, run the site locally by typing:
 
 ```
 http-server ./
@@ -12,7 +19,7 @@ http-server ./
 
   http://localhost:8080/index.html
 
-- To run feature tests simply run the following command:
+- To run feature tests run the following command:
   ```
   protractor test/e2e/conf.js
   ```
@@ -23,7 +30,7 @@ http-server ./
 
 ### Vouchers
 
-There is three implemented voucher codes you can use:
+There is three implemented voucher codes you can use on the site:
 
   - 5FORSUMMER
   - FOOTWEAR15
@@ -72,15 +79,15 @@ I took the approach of also testing these factorys acting as mocks. A - because 
 
 ## Further Extensions
 
-Over the next few weeks i may add to this repo.
+Over the next few weeks i may add to this repo:
 
 - A Node Express/Mongo backend - to allow updating of products.
 
-- Switch to HAML on the front end - the amount of html indentation/closing tags warrants the switch.
+- Switch to HAML on the front end - the amount of html indentation/closing tags from bootstrap warrants the switch.
 
 - Add a checkout button!!
 
-- I would also like to spend time refactoring. I feel a little uncomfortable with the size of the Cart controller (Although this would be helped by calling an API when interacting with vouchers), and the size of the the totalling method.
+- I would also like to spend time refactoring. I feel a little uncomfortable with the size of the Cart controller (although this may be helped by calling an API when interacting with vouchers).
 
 
 ## User Stories
@@ -111,9 +118,7 @@ Mobile:
 
 ![screenshot](/public/images/mobile_screenshot.png)
 
-## Thanks & Contact
-
-## Questions or Feedback?
+## Thanks, Questions or Feedback?
 
 Thanks for reading!
 

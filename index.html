@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="ShopApp">
 <head>
-  <title>Hello World!</title>
+  <title>ClothingStore</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="public/styles/app.css">
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -15,88 +15,91 @@
   <script src="js/cartController.js"></script>
   <script src="js/itemsController.js"></script>
 </head>
+
 <body ng-controller="CartController as Cart">
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-left">
-        <li>
-            <a class="navbar-brand" href="#">ClothingStore</a>
-        </li>
-    </ul>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="navbar__cart-container"><button type="button" class="btn btn-default btn-lg" id="toggleCart" ng-click="Cart.show = !Cart.show">
-        <span class="glyphicon glyphicon-shopping-cart cart-logo"></span>
-      </button></li>
+<!-- Nav -->
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-left">
+          <li>
+              <a class="navbar-brand" href="#">ClothingStore</a>
+          </li>
       </ul>
-    </div>
-  </div>
-</nav>
-
-
-<div class="row">
-
-    <div class="col-sm-4 col-sm-push-8">
-    <div id="cart" class="cart panel panel-default" ng-show="Cart.show">
-      <div class="panel-heading">
-        <h3 class="panel-title">Items in your cart:</h3>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbar__cart-container"><button type="button" class="btn btn-default btn-lg" id="toggleCart" ng-click="Cart.show = !Cart.show">
+          <span class="glyphicon glyphicon-shopping-cart cart-logo"></span>
+        </button></li>
+        </ul>
       </div>
-      <div class="panel-body">
+    </div>
+  </nav>
 
-        <div ng-repeat="item in Cart.addedItems track by $index">
-          <div class="cart_item">
-            <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=23&txt=100%C3%97100&w=100&h=100">
-            <p class="cart_item_desc">{{item["Product Name"]}}</p>
-            <p class="cart_item_desc">Price: {{item["Price"]}}</p>
-            <button id="removeItem" ng-click="Cart.remove($index)" class="cart_item_btn btn btn-default">Remove</button>
+
+  <div class="row">
+
+  <!-- Cart -->
+
+      <div class="col-sm-4 col-sm-push-8">
+        <div id="cart" class="cart panel panel-default" ng-show="Cart.show">
+          <div class="panel-heading">
+            <h3 class="panel-title">Items in your cart:</h3>
           </div>
-        </div>
-        <div>
-          <h5 id="cartTotal">Total: £{{Cart.total()}}
-          </h4>
-        </div>
-        <div class="panel-footer cart__voucher_area">
-          <span>
-            Enter Voucher Code:
-            <form ng-submit="Cart.applyVoucher()">
-              <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
-              <button class="btn btn-default">Add voucher</button>
-            </form>
-          </span>
-          <div id="vouchersApplied" ng-show="Cart.appliedVoucher || Cart.voucherError || Cart.voucherAlert">
-            Voucher applied:
-            <span class="cart__added-voucher">{{ Cart.appliedVoucher }}
+          <div class="panel-body">
+          <div ng-repeat="item in Cart.addedItems track by $index">
+            <div class="cart_item">
+              <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=23&txt=100%C3%97100&w=100&h=100">
+              <p class="cart_item_desc">{{item["Product Name"]}}</p>
+              <p class="cart_item_desc">Price: £{{item["Price"]}}</p>
+              <button id="removeItem" ng-click="Cart.remove($index)" class="cart_item_btn btn btn-default">Remove</button>
+            </div>
+          </div>
+          <div>
+            <h5 id="cartTotal">Total: £{{Cart.total()}}
+            </h5>
+          </div>
+          <div class="panel-footer cart__voucher_area">
+            <span>
+              Enter Voucher Code:
+              <form ng-submit="Cart.applyVoucher()">
+                <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
+                <button class="btn btn-default">Add voucher</button>
+              </form>
             </span>
-            <span id="vouchersAlert" ng-show="Cart.voucherError" class="cart__voucher-error">
-                Invalid voucher
+            <div id="vouchersApplied" ng-show="Cart.appliedVoucher || Cart.voucherError || Cart.voucherAlert">
+              Voucher applied:
+              <span class="cart__added-voucher">{{ Cart.appliedVoucher }}
               </span>
-            <span id="voucherAlert" class="cart__voucher-alert" ng-if="Cart.voucherAlert"> {{ Cart.voucherAlert }}</span>
+              <span id="vouchersAlert" ng-show="Cart.voucherError" class="cart__voucher-error">
+                  Invalid voucher
+                </span>
+              <span id="voucherAlert" class="cart__voucher-alert" ng-if="Cart.voucherAlert"> {{ Cart.voucherAlert }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
+<!-- Item Listings -->
 
-  <div class="col-sm-8 col-sm-pull-4">
-    <div ng-controller="ItemsController as Main">
-      <div ng-repeat="item in Main.items">
-          <div class="item">
-            <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200">
-            <p class="item__desc item__desc--title">{{item["Product Name"]}}</p>
-            <p class="item__desc">{{item["Category"]}}</p>
-            <p class="item__desc">£{{item["Price"]}}</p>
-            <p class="item__desc">Currently {{item["Quantity in Stock"]}} in stock</p>
-            <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" class="item__btn btn btn-default">Add to Cart</button>
-            <span class="stock_warning" ng-if="Main.isOutOfStock($index)">Currently out of stock</span>
-          </div>
+    <div class="col-sm-8 col-sm-pull-4">
+      <div ng-controller="ItemsController as Main">
+        <div ng-repeat="item in Main.items">
+            <div class="item">
+              <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200">
+              <p class="item__desc item__desc--title">{{item["Product Name"]}}</p>
+              <p class="item__desc">{{item["Category"]}}</p>
+              <p class="item__desc">£{{item["Price"]}}</p>
+              <p class="item__desc">Currently {{item["Quantity in Stock"]}} in stock</p>
+              <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" class="item__btn btn btn-default">Add to Cart</button>
+              <span class="stock_warning" ng-if="Main.isOutOfStock($index)">Currently out of stock</span>
+            </div>
+        </div>
       </div>
     </div>
   </div>
-
-
-</div>
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 describe('CartController', function () {
+
   beforeEach(module('ShopApp'));
+
   var ctrl;
 
   beforeEach(function() {
@@ -7,20 +9,21 @@ describe('CartController', function () {
   var productListFactoryMock = {
       items: function() {
         return [
-    { "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5},
-    { "Product Name": "Suede Shoes, Blue","Category": "Women’s Footwear", "Price": 42.00, "Quantity in Stock": 44},
-    { "Product Name": "Mock Item", "Category": "Test", "Price": 1.00, "Quantity in Stock": 1}
-];
+          { "Product Name": "Almond Toe Court Shoes, Patent Black", "Category": "Women’s Footwear", "Price": 99.00, "Quantity in Stock": 5},
+          { "Product Name": "Suede Shoes, Blue","Category": "Women’s Footwear", "Price": 42.00, "Quantity in Stock": 44},
+          { "Product Name": "Mock Item", "Category": "Test", "Price": 1.00, "Quantity in Stock": 1}
+        ];
       }
     };
 
     var FiveOffVoucherMock = {
-    meetsCriteria: function(cart_items, total) {
-      return (total > 5);
-    },
-    failMessage: 'Add more items to qualify',
-    discountAmount: 5
-  };
+      meetsCriteria:
+        function(cart_items, total) {
+          return (total > 5);
+        },
+      failMessage: 'Add more items to qualify',
+      discountAmount: 5
+    };
 
     module(function($provide) {
       $provide.value('ProductList', productListFactoryMock);

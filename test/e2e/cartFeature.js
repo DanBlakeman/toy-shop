@@ -1,30 +1,18 @@
 describe('Shopping Cart Feature', function () {
 
   var items;
+  var itemsInCart;
 
   beforeEach(function () {
     browser.get('http://localhost:8080');
     items = element.all(by.repeater('item in Main.items'));
     items.get(0).$('#checkoutBtn').click();
+    itemsInCart = element.all(by.repeater('item in Cart.addedItems'));
   });
 
   it('allows user to add product to cart and see it', function () {
     expect($('#cart').isDisplayed()).toEqual(true);
-    expect(element.all(by.repeater('item in Cart.addedItems')).get(0).getText()).toContain('Almond Toe Court Shoes, Patent Black');
-  });
-
-  it('allows user to remove product from cart', function () {
-    element.all(by.repeater('item in Cart.addedItems')).get(0).$('#removeItem').click()
-    expect(element.all(by.repeater('item in Cart.addedItems')).count()).toEqual(0);
-  });
-
-  it('allows user to add multiple products to cart and remove particular one', function () {
-    items.get(10).$('#checkoutBtn').click();
-    items.get(11).$('#checkoutBtn').click();
-    expect(element.all(by.repeater('item in Cart.addedItems')).count()).toEqual(3);
-    element.all(by.repeater('item in Cart.addedItems')).get(0).$('#removeItem').click()
-    expect(element.all(by.repeater('item in Cart.addedItems')).count()).toEqual(2);
-    expect(element.all(by.repeater('item in Cart.addedItems')).getText()).not.toContain('Almond Toe Court Shoes, Patent Black');
+    expect(itemsInCart.get(0).getText()).toContain('Almond Toe Court Shoes, Patent Black');
   });
 
   it('shows the total price of items in the cart', function () {
@@ -32,6 +20,22 @@ describe('Shopping Cart Feature', function () {
     expect($('#cartTotal').getText()).toEqual('Total: £141.00');
   });
 
+  it('allows user to remove product from cart', function () {
+    itemsInCart.get(0).$('#removeItem').click()
+    expect(itemsInCart.count()).toEqual(0);
+  });
 
+  it('total resets when items are removed from the cart', function () {
+    itemsInCart.get(0).$('#removeItem').click();
+    expect($('#cartTotal').getText()).toEqual('Total: £0.00');
+  });
+
+  it('allows user to add multiple products to cart and remove particular one', function () {
+    items.get(10).$('#checkoutBtn').click();
+    items.get(11).$('#checkoutBtn').click();
+    itemsInCart.get(0).$('#removeItem').click()
+    expect(itemsInCart.count()).toEqual(2);
+    expect(itemsInCart.getText()).not.toContain('Almond Toe Court Shoes, Patent Black');
+  });
 
 });
