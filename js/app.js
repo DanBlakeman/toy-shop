@@ -1,1 +1,1 @@
-var shopApp = angular.module('ShopApp', ['ngResource', 'angular.filter']);
+var shopApp = angular.module('ShopApp', ['ngResource']);

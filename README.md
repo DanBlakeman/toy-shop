@@ -3,7 +3,7 @@
 ## How to use:
 
 Firstly run the site locally by typing:
-  http-server
+  http-server ./
 
 To visit the site in your browser visit:
   index.html

@@ -7,7 +7,6 @@
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/productListFactory.js"></script>
   <script src="js/fiveOffVoucher.js"></script>
@@ -18,67 +17,76 @@
 </head>
 <body ng-controller="CartController as Cart">
 
-<nav class="navbar navbar-default navbar-fixed-top app-nav">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">ClothingStore</a>
-    </div>
-    <div class="nav navbar-nav navbar-right">
-      <button type="button" class="btn btn-default btn-lg" id="toggleCart" ng-click="Cart.show = !Cart.show">
+    <ul class="nav navbar-nav navbar-left">
+        <li>
+            <a class="navbar-brand" href="#">ClothingStore</a>
+        </li>
+    </ul>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar__cart-container"><button type="button" class="btn btn-default btn-lg" id="toggleCart" ng-click="Cart.show = !Cart.show">
         <span class="glyphicon glyphicon-shopping-cart cart-logo"></span>
-      </button>
+      </button></li>
+      </ul>
     </div>
   </div>
 </nav>
 
-  <div id="cart" ng-show="Cart.show">
-    Items in your cart:
-    <ul ng-repeat="item in Cart.addedItems track by $index">
-      <li>
-        <ul>
-          <li>{{item["Product Name"]}}</li>
-          <li>{{item["Category"]}}</li>
-          <li>{{item["Price"]}}</li>
-          <li>{{item["Quantity in Stock"]}}</li>
-          <button id="removeItem" ng-click="Cart.remove($index)">Remove</button>
-        </ul>
-    </ul>
-    <div>
-      <span id="cartTotal">Total: £{{Cart.total()}}
-      </span>
-    </div>
-    <div>
-      Enter Voucher Code:
-      <form ng-submit="Cart.applyVoucher()">
-        <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
-        <button>Add voucher</button>
-      </form>
-    </div>
-    <div id="vouchersApplied">
-      Voucher applied:
-      <span>{{ Cart.appliedVoucher }}
-      </span>
-      <span id="vouchersAlert" ng-show="Cart.voucherError">
-          Invalid voucher
-        </span>
-      <span id="voucherAlert" ng-if="Cart.voucherAlert"> {{ Cart.voucherAlert }}</span>
+
+<div class="row">
+  <div class="col-xs-8">
+    <div ng-controller="ItemsController as Main">
+      <div ng-repeat="item in Main.items">
+          <div class="item">
+            <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=200%C3%97200&w=200&h=200">
+            <p class="item__desc">{{item["Product Name"]}}</p>
+            <p class="item__desc">{{item["Category"]}}</p>
+            <p class="item__desc">£{{item["Price"]}}</p>
+            <p class="item__desc">Currently {{item["Quantity in Stock"]}} in stock</p>
+            <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" class="item__btn">Add to Cart</button>
+            <span class="stock_warning" ng-if="Main.isOutOfStock($index)">Currently out of stock</span>
+          </div>
+      </div>
     </div>
   </div>
 
-  <div ng-controller="ItemsController as Main">
-    <ul ng-repeat="item in Main.items">
-      <li>
-        <ul>
-          <li>{{item["Product Name"]}}</li>
-          <li>{{item["Category"]}}</li>
-          <li>{{item["Price"]}}</li>
-          <li>{{item["Quantity in Stock"]}}</li>
-          <button id="checkoutBtn" ng-click="Cart.addToCart($index)" ng-if="Main.isOutOfStock($index) === false" >Add to Cart</button>
-          <span class="stock_warning" ng-if="Main.isOutOfStock($index)">Currently out of stock</span>
-        </ul>
-      </li>
-    </ul>
+  <div class="col-xs-4">
+    <div id="cart" ng-show="Cart.show">
+      Items in your cart:
+      <div ng-repeat="item in Cart.addedItems track by $index">
+        <div class="cart_item">
+          <img class="item__img" src="https://placeholdit.imgix.net/~text?txtsize=23&txt=100%C3%97100&w=100&h=100">
+          <p class="cart_item_desc">{{item["Product Name"]}}</p>
+          <p class="cart_item_desc">Price: {{item["Price"]}}</p>
+          <button id="removeItem" ng-click="Cart.remove($index)" class="cart_item_btn">Remove</button>
+        </div>
+      </div>
+      <div>
+        <span id="cartTotal">Total: £{{Cart.total()}}
+        </span>
+      </div>
+      <div>
+        Enter Voucher Code:
+        <form ng-submit="Cart.applyVoucher()">
+          <input type="text" id="enterVoucherCode" ng-model="Cart.userVoucherText">
+          <button>Add voucher</button>
+        </form>
+      </div>
+      <div id="vouchersApplied">
+        Voucher applied:
+        <span>{{ Cart.appliedVoucher }}
+        </span>
+        <span id="vouchersAlert" ng-show="Cart.voucherError">
+            Invalid voucher
+          </span>
+        <span id="voucherAlert" ng-if="Cart.voucherAlert"> {{ Cart.voucherAlert }}</span>
+      </div>
+    </div>
   </div>
+
+</div>
 
 </body>
 </html>

@@ -1,8 +1,58 @@
-/* Required by Bootstrap navbar */
+/* Nav */
+
 body {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
-.cart-logo {
-  float: right;
+.navbar__cart-container {
+  margin-right: 1em;
+}
+
+/* Overide Bootstrap default behaviour of Nav collapse small screens */
+
+.navbar-collapse.collapse {
+display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+margin-right: -15px !important;
+}
+
+.navbar-right {
+float: right!important;
+}
+
+/* Item Listings */
+
+.item {
+  margin-bottom: 2em;
+  display: block;
+  text-align: center;
+}
+
+.item__desc {
+  text-align: center;
+}
+
+.item__img {
+  margin-bottom: 1em;
+}
+
+/* Cart Listings */
+
+.cart_item {
+  margin-bottom: 2em;
+}
+
+.cart_item__desc {
+  display: block;
+}
+
+.cart_item__img {
+  margin-bottom: 1em;
+  display: block;
 }
